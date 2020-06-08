@@ -10,3 +10,7 @@ end
 
 end
 
+Blogger::Application.routes.draw do
+  # ... other resources we have defined ...
+  resources :authors
+end
