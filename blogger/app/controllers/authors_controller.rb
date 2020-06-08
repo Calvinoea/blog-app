@@ -22,19 +22,19 @@ def zero_authors_or_authenticated
 end
 
 before_action :require_login, except: [:new, :create]
-  # GET /authors/new
-  def new
-    @author = Author.new
-  end
+# GET /authors/new
+def new
+  @author = Author.new
+end
 
-  # GET /authors/1/edit
-  def edit
-  end
+# GET /authors/1/edit
+def edit
+end
 
-  # POST /authors
-  # POST /authors.json
-  def create
-    @author = Author.new(author_params)
+# POST /authors
+# POST /authors.json
+def create
+  @author = Author.new(author_params)
 
     respond_to do |format|
       if @author.save
@@ -46,7 +46,7 @@ before_action :require_login, except: [:new, :create]
       end
     end
   end
-
+  
   # PATCH/PUT /authors/1
   # PATCH/PUT /authors/1.json
   def update
@@ -60,9 +60,10 @@ before_action :require_login, except: [:new, :create]
       end
     end
   end
-
+  
   # DELETE /authors/1
   # DELETE /authors/1.json
+  # before_action :require_login, except: [:new, :create]
   def destroy
     @author.destroy
     respond_to do |format|
@@ -70,11 +71,11 @@ before_action :require_login, except: [:new, :create]
       format.json { head :no_content }
     end
   end
-
+  
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_author
-      @author = Author.find(params[:id])
+  # Use callbacks to share common setup or constraints between actions.
+  def set_author
+    @author = Author.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
