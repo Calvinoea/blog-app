@@ -1,5 +1,4 @@
 class TagsController < ApplicationController
-
   def index
     @tags = Tag.all
   end
@@ -7,7 +6,6 @@ class TagsController < ApplicationController
   def show
     @tag = Tag.find(params[:id])
   end
-
 
   def destroy
     @tags = Tag.find(params[:id])

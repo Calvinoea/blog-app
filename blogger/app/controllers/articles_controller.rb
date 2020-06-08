@@ -2,7 +2,7 @@ class ArticlesController < ApplicationController
   include ArticlesHelper
 
   def index
-     @articles = Article.all
+    @articles = Article.all
   end
 
   def show
@@ -12,7 +12,7 @@ class ArticlesController < ApplicationController
   end
 
   def new
-    @article=Article.new
+    @article = Article.new
   end
 
   def create
@@ -41,6 +41,4 @@ class ArticlesController < ApplicationController
 
     redirect_to article_path(@article)
   end
-
 end
-
