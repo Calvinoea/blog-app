@@ -8,6 +8,7 @@ class TagsController < ApplicationController
     @tag = Tag.find(params[:id])
   end
 
+
   def destroy
     @tags = Tag.find(params[:id])
     @tags.destroy
