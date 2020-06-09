@@ -34,7 +34,9 @@ class AuthorsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should update author' do
-    patch author_url(@author), params: { author: { email: @author.email, password: @author.password, password_confirmation: @author.password_confirmation, username: @author.username } }
+    patch author_url(@author),
+          params: { author: { email: @author.email, password: @author.password,
+                              password_confirmation: @author.password_confirmation, username: @author.username } }
     assert_redirected_to author_url(@author)
   end
 
