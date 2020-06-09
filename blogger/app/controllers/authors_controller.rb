@@ -1,5 +1,5 @@
 class AuthorsController < ApplicationController
-  before_action :set_author, only: [:show, :edit, :update, :destroy]
+  before_action :set_author, only: %i[show edit update destroy]
 
   # GET /authors
   # GET /authors.json
@@ -9,32 +9,30 @@ class AuthorsController < ApplicationController
 
   # GET /authors/1
   # GET /authors/1.json
-  def show
+  def show; end
+
+  before_action :zero_authors_or_authenticated, only: %i[new create]
+
+  def zero_authors_or_authenticated
+    unless Author.count.zero? || current_user # rubocop:disable Style/GuardClause
+      redirect_to root_path
+      false
+    end
   end
 
- before_action :zero_authors_or_authenticated, only: [:new, :create]
-
-def zero_authors_or_authenticated
-  unless Author.count == 0 || current_user
-    redirect_to root_path
-    return false
+  before_action :require_login, except: %i[new create]
+  # GET /authors/new
+  def new
+    @author = Author.new
   end
-end
 
-before_action :require_login, except: [:new, :create]
-# GET /authors/new
-def new
-  @author = Author.new
-end
+  # GET /authors/1/edit
+  def edit; end
 
-# GET /authors/1/edit
-def edit
-end
-
-# POST /authors
-# POST /authors.json
-def create
-  @author = Author.new(author_params)
+  # POST /authors
+  # POST /authors.json
+  def create
+    @author = Author.new(author_params)
 
     respond_to do |format|
       if @author.save
@@ -46,7 +44,7 @@ def create
       end
     end
   end
-  
+
   # PATCH/PUT /authors/1
   # PATCH/PUT /authors/1.json
   def update
@@ -60,7 +58,7 @@ def create
       end
     end
   end
-  
+
   # DELETE /authors/1
   # DELETE /authors/1.json
   # before_action :require_login, except: [:new, :create]
@@ -71,15 +69,16 @@ def create
       format.json { head :no_content }
     end
   end
-  
+
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_author
     @author = Author.find(params[:id])
-    end
+  end
 
-    # Only allow a list of trusted parameters through.
-    def author_params
-      params.require(:author).permit(:username, :email, :password, :password_confirmation)
-    end
+  # Only allow a list of trusted parameters through.
+  def author_params
+    params.require(:author).permit(:username, :email, :password, :password_confirmation)
+  end
 end
